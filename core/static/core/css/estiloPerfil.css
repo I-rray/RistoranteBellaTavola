@@ -1,0 +1,214 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1c1c1c;
+  font-family: Arial, sans-serif;
+  color: #bdbcbc;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  margin: 0;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Estilos de encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #1abc9c;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+}
+
+.menu {
+
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.menu-items {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  margin-right: 20px;
+}
+
+.menu-item:last-child {
+  margin-right: 0;
+}
+
+.menu-item-link {
+  color: #333;
+  text-decoration: none;
+}
+
+.user-info {
+  margin-right: 10px;
+  color: #fff;
+}
+
+.user-info-text {
+  margin-right: 20px;
+}
+
+.user-info-link {
+  color: #333;
+  text-decoration: none;
+}
+
+.user-actions-link {
+  color: #fff;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+.user-actions {
+  margin-left: 10px;
+}
+
+
+/* Estilos de contenido */
+.title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #343a40;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+button[type="submit"],
+button[type="button"] {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+  background-color: #0056b3;
+}
+
+#editar-datos-form {
+  display: none;
+}
+.button-container {
+  display: flex;
+
+  margin-top: 20px;
+}
+
+.button-container button {
+  padding: 10px 20px;
+}
+
+#editar-datos-btn {
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #343a40;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#editar-datos-btn:hover {
+  background-color: #606468;
+}
+
+#cancelar-btn {
+  margin-left: 10px;
+  background-color: #dc3545;
+  transition: all 0.3s ease;
+}
+
+#cancelar-btn:hover {
+  background-color: #c82333;
+}
+
+label {
+  display: inline-block;
+  width: 150px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+/* Estilos para los campos de entrada de texto */
+input[type=text],
+input[type=email],
+textarea {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para el campo de fecha */
+input[type=date] {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/estiloPerfil.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<head>
+	<title>GeekGamingBlog</title>
+</head> 
+
+<body>
+	<header class="header">
+		<h1 class="logo">GeekGamingBlog - PERFIL</h1>
+	
+		<nav class="menu">
+			<ul class="menu-items">
+				<li class="menu-item"><a class="menu-item-link" href="{% url 'home' %}">Home</a></li>
+	
+				{% if request.session.is_authenticated %}
+				<li class="menu-item user-info">
+					<span class="user-info-text">Bienvenido {{ request.session.nombre_usuario }}</span>
+				</li>
+				<li>
+					<a class="user-info-link" href="{% url 'logout' %}">Cerrar sesión</a>
+				</li>
+				{% else %}
+				<li class="menu-item user-actions">
+					<a class="user-actions-link" href="{% url 'login' %}">Iniciar sesión</a>
+					<a class="menu-item-link" href="{% url 'registrar' %}">Registrarse</a>
+				</li>
+				{% endif %}
+			</ul>
+		</nav>
+	</header>
+	<main class="main">
+		<div class="container">
+			<h2 class="title">Perfil de usuario</h2>
+
+			<!-- Botón de "Editar datos" -->
+
+
+			<!-- Lista con los datos actuales -->
+			<ul id="datos-actuales">
+    <li><strong>Nombre:</strong> {{ request.session.nombre }}</li>
+    <li><strong>Nombre de usuario:</strong> {{ request.session.nombre_usuario }}</li>
+    <li><strong>Correo electrónico:</strong> {{ request.session.email }}</li>
+    <li><strong>Fecha de nacimiento:</strong> {{ request.session.fecha_nacimiento }}</li>
+    {% if request.session.direccion_despacho %}
+        <li><strong>Dirección de despacho:</strong> {{ request.session.direccion_despacho }}</li>
+    {% endif %}
+</ul>
+
+<button id="editar-datos-btn">Editar datos</button>
+
+<!-- Formulario para editar los datos -->
+<form id="editar-datos-form" action="{% url 'editar_perfil' %}" method="post" onsubmit="">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="form-label" for="nombre">Nombre:</label>
+        <input class="form-input" type="text" id="nombre" name="nombre" value="{{ nombre|default:request.session.nombre }}">
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="email">Correo electrónico:</label>
+        <input class="form-input" type="email" id="email" name="email" value="{{ email|default:request.session.email }}">
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="fecha_nacimiento">Fecha de nacimiento:</label>
+        <input class="form-input" type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ fecha_nacimiento|default:request.session.fecha_nacimiento }}">
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="direccion_despacho">Dirección de despacho:</label>
+        <textarea class="form-input" id="direccion_despacho" name="direccion_despacho">{{ direccion_despacho|default:request.session.direccion_despacho }}</textarea>
+    </div>
+	<div class="button-container">
+    <button type="submit">Guardar cambios</button>
+    <button type="button" id="cancelar-btn">Cancelar</button> <!-- Botón de cancelar -->
+	</div>
+</form>
+
+<script>
+    // Al cargar la página, ocultar el formulario y el botón de cancelar
+    document.getElementById("editar-datos-form").style.display = "none";
+    document.getElementById("cancelar-btn").style.display = "none";
+
+    // Agregar evento de click al botón de "Editar datos"
+    document.getElementById("editar-datos-btn").addEventListener("click", function () {
+        // Ocultar el botón de "Editar datos"
+        document.getElementById("editar-datos-btn").style.display = "none";
+        // Ocultar la lista de datos actuales
+        document.getElementById("datos-actuales").style.display = "none";
+        // Mostrar el formulario para editar los datos
+        document.getElementById("editar-datos-form").style.display = "block";
+        // Mostrar el botón de "Cancelar"
+        document.getElementById("cancelar-btn").style.display = "block";
+    });
+
+    // Agregar evento de click al botón de "Cancelar"
+    document.getElementById("cancelar-btn").addEventListener("click", function () {
+        // Mostrar el botón de "Editar datos"
+        document.getElementById("editar-datos-btn").style.display = "block";
+        // Mostrar la lista de datos actuales
+        document.getElementById("datos-actuales").style.display = "block";
+        // Ocultar el formulario para editar los datos
+        document.getElementById("editar-datos-form").style.display = "none";
+        // Ocultar el botón de "Cancelar"
+        document.getElementById("cancelar-btn").style.display = "none";
+    });
+
+    // Agregar evento de submit al formulario
+    document.getElementById("editar-datos-form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar que el formulario se envíe
+        var nombre = document.getElementById("nombre").value.trim();
+        var email = document.getElementById("email").value.trim();
+        var fecha_nacimiento = document.getElementById("fecha_nacimiento").value.trim();
+        var direccion_despacho = document.getElementById("direccion_despacho").value.trim();
+        if (nombre === "" || email === "" || fecha_nacimiento === "" || direccion_despacho === "") {
+            // Mostrar mensaje de error
+            swal("Todos los campos deben estar llenos.", {
+                icon: "error",
+            });
+        } else {
+            // Mostrar una alerta de confirmación antes de guardar los cambios
+            swal({
+                title: "¿Estás seguro?",
+                text: "Los cambios que realices se guardarán en tu perfil.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willSave) => {
+                if (willSave) {
+                    // Enviar el formulario para guardar los cambios
+                    document.getElementById("editar-datos-form").submit();
+                    // Mostrar mensaje de confirmación
+                    swal("¡Los datos se han guardado con éxito!", {
+                        icon: "success",
+                    });
+                } else {
+                    // Mostrar mensaje de cancelación
+                    swal("Los cambios no se han guardado.", {
+                        icon: "info",
+                    });
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+</html>

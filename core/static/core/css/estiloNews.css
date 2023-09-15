@@ -1,0 +1,130 @@
+body {
+  background: #282829;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #282829, #4c4c4d);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #282829, #4c4c4d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  max-height: calc(100vh - (altura de la barra de navegación + altura del footer));
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+}
+
+nav {
+  background: #1abc9c;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #1abc9c, #1abc9c);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1abc9c, #1abc9c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   
+}
+
+.navbar {
+  background-color: #1abc9c;
+  color: white;
+  }
+  
+  .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  }
+  
+  .navbar-toggler {
+  border: none;
+  }
+  
+  .nav-item {
+  margin-right: 1rem;
+  }
+  
+  .logout-button {
+  color: white;
+  }
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.carousel {
+  margin-bottom: 30px;
+  box-shadow: 0 0 10px rgba(239, 241, 73, 0.932);
+}
+
+.row {
+  margin-top: 30px;
+}
+
+.carousel-item img {
+  height: 30vh;
+  object-fit: cover;
+}
+
+/* Estilos para los controles del carrusel */
+.carousel-control-prev-icon, 
+.carousel-control-next-icon {
+  background-color: #00000080;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Estilos para las secciones */
+section {
+  background-image: linear-gradient(to bottom, #89c0aa, #ced6cd);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 10px rgba(239, 241, 73, 0.932);
+  border-radius: 10px;
+}
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Estilos para los artículos */
+article {
+  margin-bottom: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #c9c5c5;
+  }
+
+article img {
+  max-width: 70%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  width: auto;
+}
+article h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+article p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+/* Estilos para el pie de página */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1abc9c;
+  font-size: 0.8rem;
+}
+
+
+.navbar-nav {
+  margin-left: auto;
+  
+}
+
+.welcome-message, .nav-login {
+  margin-left: auto;
+}
+
+iframe.embed-responsive-item {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  height: 300px; /* Puedes ajustar la altura según tus necesidades */
+  border: none;
+  margin-bottom: 20px;
+}
+

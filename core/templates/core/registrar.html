@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registrate</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/estiloRegistro.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.all.min.js"></script>
+</head>
+
+<header class="header">
+    <h1 class="logo">GeekGamingBlog - REGISTRAR USUARIO</h1>
+    <nav class="menu">
+        <a class="menu-item" href="{% url 'home' %}">Home</a>
+        <a class="menu-item" href="{% url 'login' %}">Iniciar Sesion</a>
+    </nav>
+</header>
+
+<div class="contenido-principal">
+    <h1>Registrate</h1>
+    <form action="{% url 'registro_usuario' %}" method="post" onsubmit="return validarFormulario()">
+        {% csrf_token %}
+        <label for="nombre">Nombre Completo:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu Nombre Completo">
+
+        <label for="nombre_usuario">Nombre de Usuario:</label>
+        <input type="text" id="nombre_usuario" name="nombre_usuario"
+            placeholder="Ingresa tu nombre de usuario para ingresar mas adelante">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico">
+
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña">
+
+        <label for="confirmar-contrasena">Confirmar Contraseña:</label>
+        <input type="password" id="confirmar-contrasena" name="confirmar-contrasena"
+            placeholder="Confirma tu contraseña">
+
+        <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha-nacimiento" name="fecha-nacimiento">
+
+        <label for="despacho">Direccion Despacho (Opcional):</label>
+        <input type="text" id="despacho" name="despacho" placeholder="Ingresa direccion de despacho">
+
+        <input type="submit" value="Registrarse" class="boton">
+        <button type="reset" class="boton">Limpiar</button>
+    </form>
+</div>
+
+
+<script>
+    function validarFormulario() {
+        var nombre = document.getElementById("nombre").value;
+        var nombre_usuario = document.getElementById("nombre_usuario").value;
+        var email = document.getElementById("email").value;
+        var contrasena = document.getElementById("contrasena").value;
+        var confirmarContrasena = document.getElementById("confirmar-contrasena").value;
+        var fechaNacimiento = document.getElementById("fecha-nacimiento").value;
+        var numeroRegex = /[0-9]/;
+        var letraMayusRegex = /[A-Z]/;
+        var fechaNacimientoDate = new Date(fechaNacimiento);
+        var hoy = new Date();
+        var edad = hoy.getFullYear() - fechaNacimientoDate.getFullYear();
+        var mes = hoy.getMonth() - fechaNacimientoDate.getMonth();
+
+        if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimientoDate.getDate())) {
+            edad--;
+        }
+
+        if (nombre == "" || nombre_usuario == "" || email == "" || contrasena == "" || confirmarContrasena == "" || fechaNacimiento == "") {
+            Swal.fire("Error", "Todos los campos del formulario son obligatorios, excepto la dirección de despacho", "error");
+            return false;
+        }
+
+        if (contrasena.length < 8 || !numeroRegex.test(contrasena) || !letraMayusRegex.test(contrasena)) {
+            Swal.fire("Error", "La contraseña debe tener al menos 8 caracteres, un número y una letra en mayúscula", "error");
+            return false;
+        }
+
+        if (contrasena != confirmarContrasena) {
+            Swal.fire("Error", "Las contraseñas no coinciden", "error");
+            return false;
+        }
+
+        if (edad < 13) {
+            Swal.fire("Error", "Debes tener al menos 13 años para registrarte en este sitio web", "error");
+            return false;
+        }
+
+        if (contrasena.length < 6 || contrasena.length > 18) {
+            Swal.fire("Error", "La contraseña debe tener entre 6 y 18 caracteres", "error");
+            return false;
+        }
+
+        localStorage.setItem("mensajeRegistroExitoso", "El usuario ha sido registrado correctamente.");
+        return true;
+        }
+
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        var mensajeRegistroExitoso = localStorage.getItem("mensajeRegistroExitoso");
+        if (mensajeRegistroExitoso) {
+            Swal.fire("¡Registro exitoso!", mensajeRegistroExitoso, "success");
+            localStorage.removeItem("mensajeRegistroExitoso");
+        }
+    });
+</script>
+
+
+</html>

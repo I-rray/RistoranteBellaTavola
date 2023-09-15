@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/estiloRecupera.css' %}">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo-container">
+          <h1 class="logo">GeekGamingBlog - USUARIO</h1>
+        </div>
+        <nav class="menu">
+          <ul class="menu-items">
+            <li class="menu-item"><a class="menu-item-link" href="{% url 'home' %}">Home</a></li>
+            <li class="menu-item"><a class="menu-item-link" href="{% url 'login' %}">Iniciar Sesion</a></li>
+            <li class="menu-item"><a class="menu-item-link" href="{% url 'registrar' %}">Registrarse</a></li>
+          </ul>
+        </nav>
+      </header>
+
+    <div class="contenido-principal">
+        <h1>Recuperar Contraseña</h1>
+        <form action="{% url 'password_reset' %}" method="post" onsubmit="return validarFormulario()">
+            {% csrf_token %}
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico">
+    
+            <input type="submit" value="Recuperar" class="boton">
+            <button type="reset" class="boton">Limpiar</button>
+        </form>
+    
+        {% if contrasena %}
+        <div class="contrasena">
+            <p>Tu contraseña es: {{ contrasena }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function validarFormulario() {
+            var email = document.getElementById("email").value;
+
+            if (email == "") {
+                alert("Debes ingresar un correo electrónico para recuperar tu contraseña");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</body>
+
+</html>

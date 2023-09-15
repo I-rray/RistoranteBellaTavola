@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ristorante Bella Tavola</title>
+  {% load static %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'core/css/estilos.css' %}">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">Ristorante Bella Tavola</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav mr-auto">
+        <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+        <a class="nav-item nav-link" href="{% url 'news' %}">Novedades</a>
+        <a class="nav-item nav-link" href="{% url 'resena' %}">Platos</a>
+        <a class="nav-item nav-link" href="{% url 'about' %}">Nosotros</a>
+        {% if request.session.is_authenticated %}
+        <a class="nav-item nav-link" href="{% url 'perfilUsuario' %}">Perfil Usuario</a>
+        <a class="nav-item nav-link welcome-message" href="#">Bienvenido {{ request.session.nombre_usuario }}</a>
+        <form method="POST" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-link nav-item nav-link logout-button">Cerrar sesión</button>
+        </form>
+        {% else %}
+        <a class="nav-login nav-link" href="{% url 'login' %}">Iniciar Sesion</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+
+  <main>
+    <div class="container">
+      <div class="row">
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="8000">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="{% static 'core/img/plato_1.webp' %}" alt="1">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="{% static 'core/img/plato_2.webp' %}" alt="2">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="{% static 'core/img/plato_3.webp' %}" alt="3">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+
+        </div>
+
+
+
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <section>
+            <h2>Novedades</h2>
+            <article>
+              <h3>Ensalada Capresse"</h3>
+              <img src="{% static 'core/img/noticias/capresse.jpg' %}" alt="capresse" />
+              <p>Como en Italia no todo es pasta prueba esta ensalada capresse con ingredientes tan básicos como tomate, 
+                mozzarella fresca, unas hojas de albahaca y un chorrito de aceite de oliva. Por muy sencilla que parezca, 
+                la combinación de estos ingredientes nos da como resultado una ensalada que destaca por su sabor a fresco y sus colores.</p>
+
+            </article>
+
+            <article>
+              <h3>"Sopa Minestrone</h3>
+              <img src="{% static 'core/img/noticias/minestrone.jpg' %}" alt="minestrone" />
+              <p>Los ingredientes más utilizados para esta sopa son zanahorias, cebollas, 
+                judías, apio y tomates, a partir de ahí podemos decidir el tipo de pasta y los añadidos a nuestro gusto.
+              </p>
+
+            </article>
+          </section>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <section>
+            <h2>Platos</h2>
+            <article>
+              <h3>Pizzas"</h3>
+              <img src="{% static 'core/img/resenas/pizza.jpg' %}" alt="pizza" />
+              <p>"esta masa de harina se le añadirían otros ingredientes como salsa de tomate y queso mozzarella,
+                pero hoy en día la pizza admite una gran variedad de ingredientes como son frutas, verduras carne, pescado, marisco y embutidos</p>
+
+            </article>
+            <article>
+              <h3>Lasaña"</h3>
+              <img src="{% static 'core/img/resenas/lasana.jpg' %}" alt="lasana" />
+              <p>consiste en un tipo de pasta con forma de lámina cuadrada que se coloca en forma de bloque y se rellena con carne, pescado o verdura. 
+                Entre lámina y lámina también lleva bechamel, y para terminar abundante queso con el que se le dará su aspecto habitual gratinado..</p>
+
+            </article>
+          </section>
+        </div>
+      </div>
+  </main>
+
+
+
+  <footer>
+    <p>Restaurante - Ristorante Bella Tavola &copy; 2023</p>
+  </footer>
+  {% if mostrar_alerta %}
+    <script>
+      swal("Acceso concedido", "Bienvenido {{ nombre_usuario }}", "success");
+    </script>
+  {% endif %}
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
