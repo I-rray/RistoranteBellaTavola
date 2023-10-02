@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'bella_tavola.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Geek', # nombre de la base de datos
+        'USER': 'root', # usuario
+        'PASSWORD': 'qwer1234', # contraseña
+        'HOST': '127.0.0.1', # nombre o dirección IP del servidor de la base de datos
+        'PORT': '3306', # puerto
     }
 }
 
